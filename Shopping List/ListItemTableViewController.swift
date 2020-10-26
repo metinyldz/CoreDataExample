@@ -19,7 +19,6 @@ class ListItemTableViewController: UITableViewController {
         self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: nil)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
     }
     
@@ -61,13 +60,59 @@ class ListItemTableViewController: UITableViewController {
         
     }
     
-//    func deleteItem(indexPathRow: Int) {
-//        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-//        let managedContext = appDelegate.persistentContainer.viewContext
-//        let itemToRemove = self.shoppingItems[indexPathRow] as! NSManagedObject
-//        managedContext.delete(itemToRemove)
-//        
-//    }
+    func removeItem(listItem: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Bag")
+        fetchRequest.predicate = NSPredicate(format: "item = %@", listItem)
+        
+        if let result = try? managedContext.fetch(fetchRequest) {
+            for item in result {
+                managedContext.delete(item)
+            }
+            
+            do {
+                try managedContext.save()
+                print("Item saved.")
+            } catch let error {
+                print("It can't be deleted: \(error.localizedDescription)")
+            }
+            
+        }
+
+    }
+    
+    func updateItem(listItem: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Bag")
+        fetchRequest.predicate = NSPredicate(format: "item = %@", listItem)
+        
+        let popup = UIAlertController(title: "Update Item", message: "Update Item in your bag.", preferredStyle: .alert)
+        popup.addTextField { (textField) in
+            textField.placeholder = "Item"
+        }
+        let saveAction = UIAlertAction(title: "Update", style: .default) { (_) in
+            
+            do {
+                let result = try managedContext.fetch(fetchRequest)
+                print(result[0])
+                let item = result[0]
+                item.setValue(popup.textFields?.first?.text, forKey: "item")
+                try managedContext.save()
+            } catch let error {
+                print(error.localizedDescription)
+            }
+            
+            self.fetchItems()
+            
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        popup.addAction(saveAction)
+        popup.addAction(cancelAction)
+        self.present(popup, animated: true, completion: nil)
+    }
     
     //MARK: - Add Action
     
@@ -109,16 +154,30 @@ class ListItemTableViewController: UITableViewController {
         return cell
     }
     
-//    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        
-//        // Created Swipe Action
-//        let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completionHandler) in
-//            
-//            
-//            
-//        }
-//        
-//    }
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        // Created trailinig swipe action
+        let remove = UIContextualAction(style: .destructive, title: "Remove") { (action, UIView, _) in
+            self.removeItem(listItem: self.shoppingItems[indexPath.row])
+            self.shoppingItems.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.reloadData()
+        }
+        return UISwipeActionsConfiguration(actions: [remove])
+    }
+    
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        // Created leading swipe action
+        let update = UIContextualAction(style: .normal, title: "Update") { (action, UIView, _) in
+            self.updateItem(listItem: self.shoppingItems[indexPath.row])
+            tableView.reloadData()
+        }
+        
+        update.backgroundColor = UIColor.init(displayP3Red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        
+        return UISwipeActionsConfiguration(actions: [update])
+    }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Your Bag \(section + 1)"
