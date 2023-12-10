@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		180F369C2B262666008AF00B /* ListItemTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180F369B2B262666008AF00B /* ListItemTableViewModel.swift */; };
 		189528AC25459413006DA393 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189528AB25459413006DA393 /* AppDelegate.swift */; };
 		189528AE25459413006DA393 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189528AD25459413006DA393 /* SceneDelegate.swift */; };
-		189528B025459413006DA393 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189528AF25459413006DA393 /* ViewController.swift */; };
 		189528B325459413006DA393 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 189528B125459413006DA393 /* Main.storyboard */; };
 		189528B625459413006DA393 /* Shopping_List.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 189528B425459413006DA393 /* Shopping_List.xcdatamodeld */; };
 		189528B825459417006DA393 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 189528B725459417006DA393 /* Assets.xcassets */; };
@@ -18,10 +18,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		180F369B2B262666008AF00B /* ListItemTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemTableViewModel.swift; sourceTree = "<group>"; };
 		189528A825459412006DA393 /* Shopping List.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Shopping List.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		189528AB25459413006DA393 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		189528AD25459413006DA393 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		189528AF25459413006DA393 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		189528B225459413006DA393 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		189528B525459413006DA393 /* Shopping_List.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shopping_List.xcdatamodel; sourceTree = "<group>"; };
 		189528B725459417006DA393 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -41,6 +41,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		180F36952B261C94008AF00B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				189528C3254595F7006DA393 /* ListItemTableViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		180F36962B261CA8008AF00B /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				189528B925459417006DA393 /* LaunchScreen.storyboard */,
+				189528B125459413006DA393 /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		180F369A2B26264C008AF00B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				180F369B2B262666008AF00B /* ListItemTableViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		1895289F25459412006DA393 = {
 			isa = PBXGroup;
 			children = (
@@ -60,15 +85,14 @@
 		189528AA25459412006DA393 /* Shopping List */ = {
 			isa = PBXGroup;
 			children = (
+				189528BC25459417006DA393 /* Info.plist */,
 				189528AB25459413006DA393 /* AppDelegate.swift */,
 				189528AD25459413006DA393 /* SceneDelegate.swift */,
-				189528C3254595F7006DA393 /* ListItemTableViewController.swift */,
-				189528AF25459413006DA393 /* ViewController.swift */,
-				189528B125459413006DA393 /* Main.storyboard */,
 				189528B725459417006DA393 /* Assets.xcassets */,
-				189528B925459417006DA393 /* LaunchScreen.storyboard */,
-				189528BC25459417006DA393 /* Info.plist */,
 				189528B425459413006DA393 /* Shopping_List.xcdatamodeld */,
+				180F36962B261CA8008AF00B /* Storyboards */,
+				180F36952B261C94008AF00B /* View */,
+				180F369A2B26264C008AF00B /* ViewModel */,
 			);
 			path = "Shopping List";
 			sourceTree = "<group>";
@@ -143,7 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				189528B025459413006DA393 /* ViewController.swift in Sources */,
+				180F369C2B262666008AF00B /* ListItemTableViewModel.swift in Sources */,
 				189528B625459413006DA393 /* Shopping_List.xcdatamodeld in Sources */,
 				189528C4254595F7006DA393 /* ListItemTableViewController.swift in Sources */,
 				189528AC25459413006DA393 /* AppDelegate.swift in Sources */,
@@ -294,8 +318,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9FSR54Q89Y;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Shopping List/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -303,8 +327,12 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.Shopping-List";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -313,8 +341,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9FSR54Q89Y;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Shopping List/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -322,8 +350,12 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.example.Shopping-List";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
